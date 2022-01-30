@@ -377,11 +377,11 @@ QColor Button::backgroundColor() const
 
     if (isPressed()) {
         if (type() == DecorationButtonType::Close)
-            return closeColor.darker(125);
+            return d->fontColor();
         else if (type() == DecorationButtonType::Maximize)
-            return maximizeColor.darker(125);
+            return d->fontColor();
         else if (type() == DecorationButtonType::Minimize)
-            return minimizeColor.darker(125);
+            return d->fontColor();
         else
             return KColorUtils::mix(d->titleBarColor(), d->fontColor(), 0.3);
 
@@ -390,41 +390,38 @@ QColor Button::backgroundColor() const
 
     } else if (m_animation->state() == QAbstractAnimation::Running) {
         if (type() == DecorationButtonType::Close) {
-            return c->isActive() ? KColorUtils::mix(closeColor, closeColor.lighter(125), m_opacity) : KColorUtils::mix(closeColor.lighter(125), closeColor, m_opacity);
+            return d->fontColor();
 
         } else if (type() == DecorationButtonType::Maximize) {
-            return c->isActive() ? KColorUtils::mix(maximizeColor, maximizeColor.lighter(125), m_opacity) : KColorUtils::mix(maximizeColor.lighter(125), maximizeColor, m_opacity);
+            return d->fontColor();
 
         } else if (type() == DecorationButtonType::Minimize) {
-            return c->isActive() ? KColorUtils::mix(minimizeColor, minimizeColor.lighter(125), m_opacity) : KColorUtils::mix(minimizeColor.lighter(125), minimizeColor, m_opacity);
-
+            return d->fontColor();
         } else {
-            QColor color(d->fontColor());
-            color.setAlpha(color.alpha() * m_opacity);
-            return color;
+            return d->fontColor();
         }
 
     } else if (isHovered()) {
         if (type() == DecorationButtonType::Close)
-            return c->isActive() ? closeColor.lighter(125) : closeColor;
+            return d->fontColor();
         else if (type() == DecorationButtonType::Maximize)
-            return c->isActive() ? maximizeColor.lighter(125) : maximizeColor;
+            return d->fontColor();
         else if (type() == DecorationButtonType::Minimize)
-            return c->isActive() ? minimizeColor.lighter(125) : minimizeColor;
+            return d->fontColor();
         else
             return d->fontColor();
 
     } else if (type() == DecorationButtonType::Close) {
-        return c->isActive() ? closeColor : d->fontColor();
+        return d->fontColor();
 
     } else if (type() == DecorationButtonType::Maximize) {
-        return c->isActive() ? maximizeColor : d->fontColor();
+        return d->fontColor();
 
     } else if (type() == DecorationButtonType::Minimize) {
-        return c->isActive() ? minimizeColor : d->fontColor();
+        return d->fontColor();
 
     } else {
-        return QColor();
+        return d->fontColor();
     }
 }
 
